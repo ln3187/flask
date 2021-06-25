@@ -103,18 +103,19 @@ def call_factory(script_info, app_factory, args=None, kwargs=None):
         )
         kwargs["script_info"] = script_info
 
-    if (
-        not args
-        and len(sig.parameters) == 1
-        and next(iter(sig.parameters.values())).default is inspect.Parameter.empty
-    ):
-        warnings.warn(
-            "Script info is deprecated and will not be passed as the"
-            " single argument to the app factory function in Flask"
-            " 2.1.",
-            DeprecationWarning,
-        )
-        args.append(script_info)
+    if not args and len(sig.parameters) == 1:
+        tmp = next(iter(sig.parameters.values()))
+        if (
+            tmp.default is inspect.Parameter.empty
+            and tmp.kind is not inspect.Parameter.VAR_KEYWORD
+        ):
+            warnings.warn(
+                "Script info is deprecated and will not be passed as the"
+                " single argument to the app factory function in Flask"
+                " 2.1.",
+                DeprecationWarning,
+            )
+            args.append(script_info)
 
     return app_factory(*args, **kwargs)
 
