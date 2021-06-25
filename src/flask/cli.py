@@ -104,10 +104,10 @@ def call_factory(script_info, app_factory, args=None, kwargs=None):
         kwargs["script_info"] = script_info
 
     if not args and len(sig.parameters) == 1:
-        tmp = next(iter(sig.parameters.values()))
+        first_parameter = next(iter(sig.parameters.values()))
         if (
-            tmp.default is inspect.Parameter.empty
-            and tmp.kind is not inspect.Parameter.VAR_KEYWORD
+            first_parameter.default is inspect.Parameter.empty
+            and first_parameter.kind is not inspect.Parameter.VAR_KEYWORD
         ):
             warnings.warn(
                 "Script info is deprecated and will not be passed as the"
