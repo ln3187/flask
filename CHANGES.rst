@@ -21,6 +21,7 @@ Unreleased
 -   Support View and MethodView instances with async handlers. :issue:`4112`
 -   Enhance typing of ``app.errorhandler`` decorator. :issue:`4095`
 -   Fix registering a blueprint twice with differing names. :issue:`4124`
+-   Allow create_app factory to accept variable length keyword arguments :issue:`4170`
 
 
 Version 2.0.1
